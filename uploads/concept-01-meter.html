@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meter — Usage analytics for modern billing</title>
+<meta name="description" content="Meter turns raw product usage into billable events, real-time dashboards, and revenue you can actually forecast.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAFAF6;
+    --paper-2:#F1F1EA;
+    --ink:#16181D;
+    --ink-2:#4A4D56;
+    --ink-3:#8A8D96;
+    --line:#E3E3DA;
+    --line-strong:#CDCDC2;
+    --green:#0A9B62;
+    --green-dark:#07784C;
+    --green-tint:#E3F4EC;
+    --amber:#E8A33D;
+    --fh:'Space Grotesk',sans-serif;
+    --fb:'Inter Tight',sans-serif;
+    --fm:'IBM Plex Mono',monospace;
+    --ease:cubic-bezier(.2,.8,.2,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:48px 48px;
+    color:var(--ink);font-family:var(--fb);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+  section{padding:88px 0}
+  a{color:inherit}
+
+  .kicker{font-family:var(--fm);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--green);display:inline-flex;align-items:center;gap:8px;margin-bottom:18px}
+  .kicker::before{content:"";width:20px;height:2px;background:var(--green)}
+  h2.st{font-family:var(--fh);font-weight:600;font-size:clamp(26px,4vw,40px);line-height:1.15;letter-spacing:-.01em;margin-bottom:12px}
+  .sub{color:var(--ink-2);font-size:17px;max-width:540px}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:50;background:rgba(250,250,246,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav .in{max-width:1140px;margin:0 auto;padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--fh);font-weight:600;font-size:19px;text-decoration:none;letter-spacing:-.01em}
+  .logo .m{width:26px;height:26px;border:2px solid var(--ink);border-radius:6px;position:relative;background:#fff}
+  .logo .m::after{content:"";position:absolute;left:4px;right:4px;bottom:4px;height:9px;background:linear-gradient(90deg,var(--green) 0 60%,var(--green-tint) 60%);border-radius:2px}
+  nav .links{display:flex;gap:24px;align-items:center;font-size:14px;font-weight:500}
+  nav .links a{text-decoration:none;color:var(--ink-2)}
+  nav .links a:hover{color:var(--ink)}
+  @media(max-width:680px){nav .links a:not(.btn){display:none}}
+
+  .btn{display:inline-block;font-family:var(--fb);font-weight:600;font-size:15px;text-decoration:none;border-radius:8px;padding:12px 22px;cursor:pointer;transition:transform .15s var(--ease),background .15s var(--ease),box-shadow .15s var(--ease)}
+  .btn.solid{background:var(--ink);color:var(--paper);border:1px solid var(--ink)}
+  .btn.solid:hover{background:#000;transform:translateY(-1px)}
+  .btn.green{background:var(--green);color:#fff;border:1px solid var(--green-dark);box-shadow:0 1px 0 var(--green-dark)}
+  .btn.green:hover{background:var(--green-dark);transform:translateY(-1px)}
+  .btn.line{background:#fff;color:var(--ink);border:1px solid var(--line-strong)}
+  .btn.line:hover{border-color:var(--ink)}
+  .btn.sm{padding:9px 16px;font-size:14px}
+
+  /* hero */
+  .hero{padding:84px 0 64px;text-align:center}
+  .hero .pill{display:inline-flex;align-items:center;gap:8px;font-family:var(--fm);font-size:12px;color:var(--green-dark);background:var(--green-tint);border:1px solid #C4E7D6;border-radius:999px;padding:6px 14px;margin-bottom:26px}
+  .hero .pill b{width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .hero h1{font-family:var(--fh);font-weight:600;font-size:clamp(36px,6.5vw,64px);line-height:1.06;letter-spacing:-.02em;max-width:800px;margin:0 auto}
+  .hero h1 .u{box-shadow:inset 0 -0.28em 0 var(--green-tint)}
+  .hero p{color:var(--ink-2);font-size:clamp(16px,2.2vw,19px);max-width:560px;margin:22px auto 34px}
+  .hero .ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .hero .micro{font-family:var(--fm);font-size:12px;color:var(--ink-3);margin-top:22px}
+
+  /* dashboard mock */
+  .dash{max-width:940px;margin:64px auto 0;background:#fff;border:1px solid var(--line-strong);border-radius:14px;box-shadow:0 24px 60px rgba(22,24,29,.10),0 2px 8px rgba(22,24,29,.05);overflow:hidden;text-align:left}
+  .dash-top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--line)}
+  .dash-top .t{font-family:var(--fh);font-weight:500;font-size:14px}
+  .dash-top .range{font-family:var(--fm);font-size:11px;color:var(--ink-3);border:1px solid var(--line);border-radius:6px;padding:4px 10px}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line)}
+  @media(max-width:640px){.cards{grid-template-columns:1fr}}
+  .mcard{padding:18px 20px;border-right:1px solid var(--line)}
+  .mcard:last-child{border-right:none}
+  @media(max-width:640px){.mcard{border-right:none;border-bottom:1px solid var(--line)}.mcard:last-child{border-bottom:none}}
+  .mcard .k{font-family:var(--fm);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+  .mcard .v{font-family:var(--fh);font-weight:600;font-size:28px;margin-top:6px;font-variant-numeric:tabular-nums}
+  .mcard .d{font-family:var(--fm);font-size:11px;margin-top:4px}
+  .up{color:var(--green)}.warn{color:var(--amber)}
+  .chart{padding:26px 20px 20px;position:relative}
+  .chart .label{font-family:var(--fm);font-size:11px;color:var(--ink-3);margin-bottom:16px}
+  .bars{display:flex;align-items:flex-end;gap:6px;height:150px;border-bottom:1px solid var(--line-strong);position:relative}
+  .bars::before{content:"";position:absolute;left:0;right:0;top:33%;border-top:1px dashed var(--line)}
+  .bars::after{content:"";position:absolute;left:0;right:0;top:66%;border-top:1px dashed var(--line)}
+  .bar{flex:1;background:var(--green);border-radius:3px 3px 0 0;opacity:.9;transform-origin:bottom;transform:scaleY(0);transition:transform .7s var(--ease)}
+  .bar:nth-child(even){background:#63C79C}
+  .bar.hot{background:var(--amber)}
+  .dash.in .bar{transform:scaleY(1)}
+  .xaxis{display:flex;justify-content:space-between;font-family:var(--fm);font-size:10px;color:var(--ink-3);margin-top:8px}
+
+  /* logos */
+  .logos{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(255,255,255,.6);padding:26px 0}
+  .logos .in{display:flex;justify-content:center;gap:22px 52px;flex-wrap:wrap;align-items:center}
+  .logos span{font-family:var(--fh);font-weight:600;font-size:16px;color:var(--ink-3);letter-spacing:.01em}
+  .logos .cap{width:100%;text-align:center;font-family:var(--fm);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:4px}
+
+  /* features */
+  .feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:44px}
+  .feat{background:#fff;border:1px solid var(--line-strong);border-radius:12px;padding:26px;transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+  .feat:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(22,24,29,.08)}
+  .feat .ic{width:38px;height:38px;border:1.5px solid var(--ink);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;font-family:var(--fm);font-size:15px;background:var(--green-tint)}
+  .feat h3{font-family:var(--fh);font-weight:600;font-size:19px;margin-bottom:8px}
+  .feat p{font-size:14.5px;color:var(--ink-2)}
+  .feat .mini{margin-top:18px;border-top:1px dashed var(--line-strong);padding-top:14px;font-family:var(--fm);font-size:11.5px;color:var(--ink-3)}
+  .feat .mini b{color:var(--green-dark);font-weight:500}
+
+  /* code */
+  .code-split{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+  @media(max-width:860px){.code-split{grid-template-columns:1fr}}
+  .codebox{background:var(--ink);border-radius:12px;padding:22px 24px;box-shadow:0 20px 48px rgba(22,24,29,.18);overflow-x:auto}
+  .codebox .fname{font-family:var(--fm);font-size:11px;color:#7B7E88;margin-bottom:14px;display:flex;gap:6px;align-items:center}
+  .codebox .fname::before{content:"● ● ●";color:#3A3D47;font-size:9px;letter-spacing:2px;margin-right:8px}
+  pre{font-family:var(--fm);font-size:13.5px;line-height:1.7;color:#E8E8E2}
+  .c-kw{color:#8BD5FF}.c-str{color:#7FE0AE}.c-fn{color:#FFD479}.c-cm{color:#6A6E7A}
+  .checks{list-style:none;margin-top:26px}
+  .checks li{display:flex;gap:12px;padding:9px 0;font-size:15px;color:var(--ink-2)}
+  .checks li::before{content:"✓";font-family:var(--fm);color:var(--green);font-weight:500}
+
+  /* proof band */
+  .band{background:var(--ink);color:var(--paper);border-radius:16px;padding:52px 40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;text-align:center}
+  .band .n{font-family:var(--fh);font-weight:600;font-size:clamp(30px,4.5vw,44px);font-variant-numeric:tabular-nums}
+  .band .n span{color:#63C79C}
+  .band .l{font-family:var(--fm);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8A8D96;margin-top:6px}
+
+  /* cta */
+  .cta-final{text-align:center;padding-bottom:110px}
+  .cta-final h2{font-family:var(--fh);font-weight:600;font-size:clamp(28px,5vw,46px);letter-spacing:-.015em;line-height:1.1;max-width:640px;margin:0 auto 16px}
+  .cta-final p{color:var(--ink-2);margin-bottom:32px}
+  footer{border-top:1px solid var(--line);background:rgba(255,255,255,.6);padding:32px 0}
+  footer .in{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+  footer .fine{font-family:var(--fm);font-size:12px;color:var(--ink-3)}
+
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .55s var(--ease),transform .55s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    .reveal{opacity:1;transform:none}.bar{transform:scaleY(1)!important}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="in">
+    <a class="logo" href="#"><span class="m"></span>Meter</a>
+    <div class="links">
+      <a href="#product">Product</a>
+      <a href="#developers">Developers</a>
+      <a href="#pricing">Pricing</a>
+      <a class="btn line sm" href="#">Sign in</a>
+      <a class="btn green sm" href="#start">Start free</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="pill"><b></b>Now metering 2.1B events/day</div>
+    <h1>Know exactly what your usage is <span class="u">worth.</span></h1>
+    <p>Meter turns raw product events into billable usage, real-time dashboards, and revenue you can actually forecast. Built for usage-based SaaS.</p>
+    <div class="ctas">
+      <a class="btn green" href="#start">Start metering free</a>
+      <a class="btn line" href="#developers">Read the docs</a>
+    </div>
+    <div class="micro">$ npm install @meter/sdk — free up to 1M events/mo</div>
+
+    <div class="dash" id="dash">
+      <div class="dash-top"><span class="t">Usage overview</span><span class="range">Last 30 days ▾</span></div>
+      <div class="cards">
+        <div class="mcard"><div class="k">Billable events</div><div class="v" data-count="48273911">0</div><div class="d up">▲ 12.4% vs prev</div></div>
+        <div class="mcard"><div class="k">Metered revenue</div><div class="v" data-count="212840" data-prefix="$">0</div><div class="d up">▲ 8.1% vs prev</div></div>
+        <div class="mcard"><div class="k">Overage alerts</div><div class="v" data-count="3">0</div><div class="d warn">2 approaching limits</div></div>
+      </div>
+      <div class="chart">
+        <div class="label">EVENTS / DAY</div>
+        <div class="bars">
+          <div class="bar" style="height:34%"></div><div class="bar" style="height:41%"></div>
+          <div class="bar" style="height:38%"></div><div class="bar" style="height:52%"></div>
+          <div class="bar" style="height:47%"></div><div class="bar" style="height:44%"></div>
+          <div class="bar" style="height:58%"></div><div class="bar" style="height:63%"></div>
+          <div class="bar" style="height:55%"></div><div class="bar" style="height:70%"></div>
+          <div class="bar" style="height:66%"></div><div class="bar hot" style="height:92%"></div>
+          <div class="bar" style="height:74%"></div><div class="bar" style="height:79%"></div>
+          <div class="bar" style="height:85%"></div><div class="bar" style="height:88%"></div>
+        </div>
+        <div class="xaxis"><span>JUN 10</span><span>JUN 17</span><span>JUN 24</span><span>JUL 01</span><span>JUL 08</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="logos">
+  <div class="wrap in">
+    <div class="cap">Metering usage for teams at</div>
+    <span>Streamline</span><span>Voxel</span><span>Parsec AI</span><span>Northbeam</span><span>Kelvin</span><span>Dataloom</span>
+  </div>
+</div>
+
+<section id="product">
+  <div class="wrap">
+    <div class="kicker">Product</div>
+    <h2 class="st">From raw events to revenue,<br>without the spreadsheet glue.</h2>
+    <p class="sub">Most usage-based teams stitch together event pipelines, cron jobs, and a prayer. Meter replaces the whole stack.</p>
+    <div class="feats">
+      <div class="feat reveal">
+        <div class="ic">⚡</div>
+        <h3>Real-time metering</h3>
+        <p>Ingest millions of events per second with exactly-once guarantees. Usage shows up on dashboards — and invoices — in under a second.</p>
+        <div class="mini">p99 ingest latency <b>&lt; 80ms</b></div>
+      </div>
+      <div class="feat reveal">
+        <div class="ic">∑</div>
+        <h3>Flexible aggregation</h3>
+        <p>Sum, max, unique counts, time-weighted averages — define any billable metric in plain SQL-like rules. Change pricing without re-instrumenting.</p>
+        <div class="mini">metric changes deploy in <b>one click</b></div>
+      </div>
+      <div class="feat reveal">
+        <div class="ic">→</div>
+        <h3>Billing-ready output</h3>
+        <p>Native sync to Stripe, Chargebee, and your data warehouse. Every line item traceable back to the raw events that produced it.</p>
+        <div class="mini">invoice disputes down <b>~40%</b> on average</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="developers" style="background:rgba(255,255,255,.55);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap code-split">
+    <div>
+      <div class="kicker">Developers</div>
+      <h2 class="st">Instrument once.<br>Bill forever.</h2>
+      <p class="sub" style="margin-bottom:0">Three lines to track any usage event. Idempotent by design, batched automatically, typed end to end.</p>
+      <ul class="checks">
+        <li>SDKs for Node, Python, Go, and Ruby</li>
+        <li>Replay & backfill historical events safely</li>
+        <li>Sandbox environment with fake time travel</li>
+      </ul>
+    </div>
+    <div class="codebox reveal">
+      <div class="fname">track-usage.ts</div>
+<pre><span class="c-kw">import</span> { meter } <span class="c-kw">from</span> <span class="c-str">"@meter/sdk"</span>;
+
+<span class="c-cm">// count every API call against the customer's plan</span>
+<span class="c-kw">await</span> meter.<span class="c-fn">track</span>({
+  event: <span class="c-str">"api_request"</span>,
+  customer: req.org.id,
+  value: <span class="c-kw">1</span>,
+  idempotencyKey: req.id,
+});</pre>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="band reveal">
+      <div><div class="n" data-count="2100000000" data-compact="1">0</div><div class="l">Events / day</div></div>
+      <div><div class="n"><span>99.99</span>%</div><div class="l">Ingest uptime</div></div>
+      <div><div class="n" data-count="340" data-prefix="$" data-suffix="M">0</div><div class="l">Usage billed / yr</div></div>
+      <div><div class="n"><span>&lt;80</span>ms</div><div class="l">p99 latency</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final" id="start">
+  <div class="wrap">
+    <div class="kicker" style="justify-content:center;display:inline-flex">Get started</div>
+    <h2>Your usage data is already worth money. Start counting it.</h2>
+    <p>Free up to 1M events per month. No credit card, no sales call.</p>
+    <div class="ctas" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a class="btn green" href="#">Start metering free</a>
+      <a class="btn solid" href="#">Talk to an engineer</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap in">
+    <a class="logo" href="#" style="font-size:16px"><span class="m" style="width:22px;height:22px"></span>Meter</a>
+    <div class="fine">© 2026 Meter, Inc. — Concept by Novara Studio</div>
+  </div>
+</footer>
+
+<script>
+  // scroll reveals
+  const io = new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // dashboard: bars + counters when visible
+  const fmt = (n, el) => {
+    const pre = el.dataset.prefix||'', suf = el.dataset.suffix||'';
+    if(el.dataset.compact) return pre + (n/1e9).toFixed(1) + 'B' + suf;
+    return pre + Math.round(n).toLocaleString('en-US') + suf;
+  };
+  const runCounters = root => root.querySelectorAll('[data-count]').forEach(el=>{
+    const target = +el.dataset.count, t0 = performance.now(), dur = 1400;
+    const tick = t => {
+      const p = Math.min((t-t0)/dur, 1), eased = 1-Math.pow(1-p,3);
+      el.textContent = fmt(target*eased, el);
+      if(p<1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  });
+  const dashIO = new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){
+    e.target.classList.add('in'); runCounters(e.target); dashIO.unobserve(e.target);
+  }})},{threshold:.3});
+  const dash = document.getElementById('dash');
+  dashIO.observe(dash);
+  document.querySelectorAll('.band').forEach(b=>dashIO.observe(b));
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){
+    document.querySelectorAll('[data-count]').forEach(el=>el.textContent=fmt(+el.dataset.count,el));
+  }
+</script>
+
+</body>
+</html>

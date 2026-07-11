@@ -1,0 +1,200 @@
+/* ============================================
+   NOVARA STUDIO — DESIGN TOKENS v1
+   Drop this into any project. Dark-first.
+   ============================================ */
+
+:root {
+  /* ---------- COLOR / PRIMITIVES ---------- */
+  /* Ink scale (backgrounds, dark surfaces) */
+  --ink-900: #0C0E16;   /* deepest — footers, code blocks */
+  --ink-800: #12141F;   /* primary background */
+  --ink-700: #1B1E2C;   /* raised surfaces, cards */
+  --ink-600: #262A3C;   /* hover states on surfaces */
+  --ink-500: #343850;   /* borders on light-ish elements */
+
+  /* Porcelain scale (light surfaces, text on dark) */
+  --porcelain-100: #FFFFFF;
+  --porcelain-200: #F6F5F0;  /* primary light / text on dark */
+  --porcelain-300: #E8E7E0;
+  --porcelain-400: #C9C8C2;  /* secondary text on dark */
+
+  /* Nova scale (the one accent) */
+  --nova-300: #C7CBFF;  /* glow edge, italic emphasis on dark */
+  --nova-400: #A5ABFF;  /* hover */
+  --nova-500: #8B93FF;  /* primary accent */
+  --nova-600: #6F77E8;  /* active / pressed */
+  --nova-700: #5A62C9;  /* accent on light backgrounds (AA) */
+
+  /* Slate (neutral text) */
+  --slate-400: #A3A6B8;
+  --slate-500: #8A8DA0;  /* captions, secondary on dark */
+  --slate-600: #4C4E5C;  /* secondary text on light */
+
+  /* Semantic */
+  --success: #8BE0A4;
+  --warning: #F0C987;
+  --error:   #F08A8A;
+
+  /* ---------- COLOR / SEMANTIC ALIASES ---------- */
+  --bg:            var(--ink-800);
+  --bg-deep:       var(--ink-900);
+  --surface:       var(--ink-700);
+  --surface-hover: var(--ink-600);
+  --border:        rgba(246, 245, 240, 0.12);
+  --border-strong: rgba(246, 245, 240, 0.24);
+  --text:          var(--porcelain-200);
+  --text-secondary:var(--porcelain-400);
+  --text-muted:    var(--slate-500);
+  --accent:        var(--nova-500);
+  --accent-hover:  var(--nova-400);
+  --accent-active: var(--nova-600);
+  --on-accent:     var(--ink-800);
+
+  /* ---------- SIGNATURE ---------- */
+  --glow-radial: radial-gradient(circle at 40% 35%,
+      #FFFFFF 0%, var(--nova-300) 40%, var(--nova-500) 100%);
+  --glow-ambient: radial-gradient(circle,
+      rgba(139,147,255,0.25) 0%, rgba(139,147,255,0.06) 45%, transparent 70%);
+  --glow-shadow-sm: 0 0 24px rgba(139,147,255,0.30);
+  --glow-shadow-md: 0 0 40px rgba(139,147,255,0.45);
+
+  /* ---------- TYPOGRAPHY ---------- */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Instrument Sans', -apple-system, sans-serif;
+  --font-mono: 'Spline Sans Mono', 'SF Mono', monospace;
+
+  /* Type scale — 1.250 (major third), fluid */
+  --text-display-xl: clamp(52px, 8vw, 88px);   /* lh 1.05, w 340 */
+  --text-display:    clamp(38px, 6vw, 61px);   /* lh 1.10, w 340 */
+  --text-h1:         clamp(30px, 4.5vw, 49px); /* lh 1.15, w 400 */
+  --text-h2:         clamp(25px, 3.5vw, 39px); /* lh 1.20, w 400 */
+  --text-h3:         clamp(21px, 2.8vw, 31px); /* lh 1.25, w 500 (body font) */
+  --text-lg:   20px;  /* lead paragraphs, lh 1.55 */
+  --text-base: 16px;  /* body, lh 1.60 */
+  --text-sm:   14px;  /* secondary, lh 1.55 */
+  --text-xs:   12px;  /* mono labels, lh 1.40, ls 0.14em, uppercase */
+
+  --tracking-label: 0.14em;
+  --tracking-wide:  0.18em;
+
+  /* ---------- SPACING (4px base) ---------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;  /* section padding desktop */
+
+  /* ---------- RADII ---------- */
+  --radius-sm: 8px;    /* inputs, small chips */
+  --radius-md: 14px;   /* cards */
+  --radius-lg: 20px;   /* large cards, mockups */
+  --radius-full: 999px;/* buttons, pills */
+
+  /* ---------- ELEVATION ---------- */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.35);
+  --shadow-lg: 0 20px 48px rgba(0,0,0,0.45);
+
+  /* ---------- MOTION ---------- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 500ms;  /* glow reveals only */
+
+  /* ---------- LAYOUT ---------- */
+  --container: 1120px;
+  --container-narrow: 720px;  /* long-form text */
+  --gutter: 24px;
+}
+
+/* ---------- LIGHT MODE (proposals, docs) ---------- */
+[data-theme="light"] {
+  --bg:            var(--porcelain-200);
+  --bg-deep:       var(--porcelain-300);
+  --surface:       var(--porcelain-100);
+  --surface-hover: var(--porcelain-300);
+  --border:        rgba(18, 20, 31, 0.10);
+  --border-strong: rgba(18, 20, 31, 0.20);
+  --text:          var(--ink-800);
+  --text-secondary:var(--slate-600);
+  --text-muted:    var(--slate-500);
+  --accent:        var(--nova-700);  /* deepened for AA contrast */
+  --accent-hover:  var(--nova-600);
+  --on-accent:     var(--porcelain-100);
+}
+
+/* ---------- BASE COMPONENT RECIPES ---------- */
+
+.btn-primary {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--on-accent);
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 13px 26px;
+  cursor: pointer;
+  box-shadow: var(--glow-shadow-sm);
+  transition: transform var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-fast) var(--ease-out),
+              background var(--duration-fast) var(--ease-out);
+}
+.btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: var(--glow-shadow-md); }
+.btn-primary:active { background: var(--accent-active); transform: translateY(0); }
+.btn-primary:focus-visible { outline: 2px solid var(--nova-300); outline-offset: 3px; }
+.btn-primary:disabled { background: var(--ink-500); color: var(--slate-500); box-shadow: none; cursor: not-allowed; }
+
+.btn-ghost {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: 13px 26px;
+  cursor: pointer;
+  transition: border-color var(--duration-fast) var(--ease-out);
+}
+.btn-ghost:hover { border-color: var(--accent); }
+.btn-ghost:focus-visible { outline: 2px solid var(--nova-300); outline-offset: 3px; }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+}
+
+.input {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  width: 100%;
+  transition: border-color var(--duration-fast) var(--ease-out);
+}
+.input::placeholder { color: var(--text-muted); }
+.input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(139,147,255,0.18); }
+.input[aria-invalid="true"] { border-color: var(--error); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
