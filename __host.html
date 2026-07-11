@@ -1,0 +1,26 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>body{margin:0}iframe{border:0;display:block}</style></head>
+<body>
+<iframe id="f" width="390" height="3500"></iframe>
+<pre id="probe-result">pending</pre>
+<script>
+const page = new URLSearchParams(location.search).get('page');
+const f = document.getElementById('f');
+f.src = page;
+f.addEventListener('load', () => setTimeout(() => {
+  const out = [];
+  try {
+    const doc = f.contentDocument, win = f.contentWindow;
+    out.push('PAGE ' + page + ' DOCWIDTH ' + doc.documentElement.scrollWidth + ' viewport ' + win.innerWidth);
+    doc.querySelectorAll('*').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.right > win.innerWidth + 1 && r.width > 0) {
+        let clipped = false, p = el.parentElement;
+        while (p) { const o = win.getComputedStyle(p).overflow; if (o.includes('hidden')) { clipped = true; break; } p = p.parentElement; }
+        if (!clipped) out.push('OVER right=' + Math.round(r.right) + ' w=' + Math.round(r.width) + ' <' + el.tagName.toLowerCase() + ' class=' + (el.className||'') + '> ' + (el.textContent||'').trim().slice(0,50));
+      }
+    });
+  } catch(e) { out.push('ERR ' + e.message); }
+  document.getElementById('probe-result').textContent = out.slice(0,30).join('\n');
+}, 2500));
+</script>
+</body></html>

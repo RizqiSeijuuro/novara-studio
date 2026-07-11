@@ -18,6 +18,14 @@
   body{background:#F6F5F0;color:#12141F;font-family:'Instrument Sans',-apple-system,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
   a{color:#5A62C9}
   a:hover{color:#6F77E8}
+  @media (max-width:640px){
+    .split-grid{grid-template-columns:1fr!important;gap:16px!important}
+    .case-hero{padding:64px 0 44px!important}
+    .sec-open{padding:56px 0 0!important}
+    .sec{padding:56px 0!important}
+    .cta-outer{padding:0 16px 64px!important}
+    .cta-inner{padding:56px 24px!important}
+  }
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </helmet>
@@ -32,7 +40,7 @@
   </div>
 </nav>
 
-<div data-screen-label="Case hero" style="position:relative;overflow:hidden;padding:100px 0 64px;border-bottom:1px solid rgba(18,20,31,.10)">
+<div data-screen-label="Case hero" class="case-hero" style="position:relative;overflow:hidden;padding:100px 0 64px;border-bottom:1px solid rgba(18,20,31,.10)">
   <div style="position:absolute;top:-280px;left:50%;transform:translateX(-50%);width:720px;height:720px;border-radius:50%;background:radial-gradient(circle,rgba(139,147,255,.28) 0%,rgba(139,147,255,.09) 45%,transparent 70%);pointer-events:none"></div>
   <div style="position:relative;max-width:1120px;margin:0 auto;padding:0 24px">
     <div style="font-family:'Spline Sans Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#5A62C9;margin-bottom:20px">Case Study · Concept 03</div>
@@ -55,8 +63,8 @@
   </div>
 </div>
 
-<section data-screen-label="Brief" style="padding:96px 0 0">
-  <div style="max-width:1120px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:minmax(140px,1fr) minmax(280px,2.2fr);gap:24px 56px">
+<section data-screen-label="Brief" class="sec-open" style="padding:96px 0 0">
+  <div class="split-grid" style="max-width:1120px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:minmax(140px,1fr) minmax(280px,2.2fr);gap:24px 56px">
     <div style="font-family:'Spline Sans Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#5A62C9;padding-top:6px">The brief</div>
     <div>
       <h2 style="font-family:'Fraunces',serif;font-weight:340;font-size:clamp(24px,3.5vw,34px);line-height:1.2">Smart-home pages sell specs. People buying a planter are buying a feeling.</h2>
@@ -65,8 +73,8 @@
   </div>
 </section>
 
-<section data-screen-label="Approach" style="padding:72px 0 0">
-  <div style="max-width:1120px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:minmax(140px,1fr) minmax(280px,2.2fr);gap:24px 56px">
+<section data-screen-label="Approach" class="sec-open" style="padding:72px 0 0">
+  <div class="split-grid" style="max-width:1120px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:minmax(140px,1fr) minmax(280px,2.2fr);gap:24px 56px">
     <div style="font-family:'Spline Sans Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#5A62C9;padding-top:6px">The approach</div>
     <div style="display:flex;flex-direction:column;gap:18px;max-width:560px">
       <p style="color:#4C4E5C;font-size:16px"><b style="color:#12141F;font-weight:600">Editorial, not electronic.</b> A split hero with the product staged in an arched alcove, like a catalogue spread. Sensor readouts appear as small floating cards — present, but subordinate to the object.</p>
@@ -76,7 +84,7 @@
   </div>
 </section>
 
-<section data-screen-label="Design decisions" style="padding:96px 0">
+<section data-screen-label="Design decisions" class="sec" style="padding:96px 0">
   <div style="max-width:1120px;margin:0 auto;padding:0 24px">
     <div style="font-family:'Spline Sans Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#5A62C9;margin-bottom:32px">Design decisions</div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px">
@@ -106,8 +114,8 @@
   </div>
 </section>
 
-<div data-screen-label="Case CTA" style="padding:0 24px 96px">
-  <div style="background:#12141F;color:#F6F5F0;border-radius:28px;max-width:1072px;margin:0 auto;text-align:center;padding:72px 32px;position:relative;overflow:hidden">
+<div data-screen-label="Case CTA" class="cta-outer" style="padding:0 24px 96px">
+  <div class="cta-inner" style="background:#12141F;color:#F6F5F0;border-radius:28px;max-width:1072px;margin:0 auto;text-align:center;padding:72px 32px;position:relative;overflow:hidden">
     <div style="position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(139,147,255,.24) 0%,transparent 68%);pointer-events:none"></div>
     <h2 style="position:relative;font-family:'Fraunces',serif;font-weight:340;font-size:clamp(26px,4.5vw,42px);line-height:1.15;max-width:640px;margin:0 auto">Selling a physical product? Your page should feel like <em style="font-style:italic;color:#C7CBFF">holding it.</em></h2>
     <div style="position:relative;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:32px">

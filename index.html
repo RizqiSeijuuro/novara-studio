@@ -19,6 +19,13 @@
   a{color:#5A62C9}
   a:hover{color:#6F77E8}
   summary::-webkit-details-marker{display:none}
+  @media (max-width:680px){
+    .nav-link{display:none}
+    .hero{padding:80px 0 64px!important}
+    .sec{padding:64px 0!important}
+    .cta-outer{padding:56px 16px!important}
+    .cta-inner{padding:56px 24px!important}
+  }
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </helmet>
@@ -27,16 +34,16 @@
   <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 24px;max-width:1120px;margin:0 auto">
     <a href="#" style="font-family:'Fraunces',serif;font-weight:400;font-size:21px;text-decoration:none;color:#12141F">N<span style="color:#5A62C9">o</span>vara</a>
     <div style="display:flex;gap:26px;align-items:center;font-size:14px">
-      <a href="#work" style="text-decoration:none;color:#4C4E5C" style-hover="color:#5A62C9">Work</a>
-      <a href="#process" style="text-decoration:none;color:#4C4E5C" style-hover="color:#5A62C9">Process</a>
-      <a href="#pricing" style="text-decoration:none;color:#4C4E5C" style-hover="color:#5A62C9">Pricing</a>
-      <a href="#faq" style="text-decoration:none;color:#4C4E5C" style-hover="color:#5A62C9">FAQ</a>
+      <a href="#work" class="nav-link" style="text-decoration:none;color:#4C4E5C" style-hover="color:#5A62C9">Work</a>
+      <a href="#process" class="nav-link" style="text-decoration:none;color:#4C4E5C" style-hover="color:#5A62C9">Process</a>
+      <a href="#pricing" class="nav-link" style="text-decoration:none;color:#4C4E5C" style-hover="color:#5A62C9">Pricing</a>
+      <a href="#faq" class="nav-link" style="text-decoration:none;color:#4C4E5C" style-hover="color:#5A62C9">FAQ</a>
       <a href="#book" style="display:inline-block;font-weight:600;font-size:14px;color:#FFFFFF;background:#5A62C9;border-radius:999px;padding:10px 20px;text-decoration:none;box-shadow:0 4px 14px rgba(90,98,201,.22);transition:all .15s cubic-bezier(.16,1,.3,1)" style-hover="background:#6F77E8;color:#FFFFFF;transform:translateY(-1px)">Book a slot</a>
     </div>
   </div>
 </nav>
 
-<div data-screen-label="Hero" style="position:relative;overflow:hidden;padding:130px 0 115px;text-align:center;border-bottom:1px solid rgba(18,20,31,.10)">
+<div data-screen-label="Hero" class="hero" style="position:relative;overflow:hidden;padding:130px 0 115px;text-align:center;border-bottom:1px solid rgba(18,20,31,.10)">
   <div style="position:absolute;top:-260px;left:50%;transform:translateX(-50%);width:720px;height:720px;border-radius:50%;background:radial-gradient(circle,rgba(139,147,255,.30) 0%,rgba(139,147,255,.10) 45%,transparent 70%);pointer-events:none"></div>
   <div style="position:relative;max-width:1120px;margin:0 auto;padding:0 24px">
     <div style="display:inline-flex;align-items:center;gap:8px;font-family:'Spline Sans Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#5A62C9;border:1px solid rgba(90,98,201,.35);background:rgba(139,147,255,.10);border-radius:999px;padding:7px 16px;margin-bottom:32px">✦ Landing Page as a Service</div>
@@ -58,7 +65,7 @@
   </div>
 </div>
 
-<section id="work" data-screen-label="Work" style="padding:120px 0">
+<section id="work" data-screen-label="Work" class="sec" style="padding:120px 0">
   <div style="max-width:1120px;margin:0 auto;padding:0 24px">
     <div style="font-family:'Spline Sans Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#5A62C9;margin-bottom:20px">Selected Work</div>
     <h2 style="font-family:'Fraunces',serif;font-weight:340;font-size:clamp(28px,4.5vw,44px);line-height:1.15;margin-bottom:14px">Pages built to make people <em style="font-style:italic;color:#5A62C9">stop scrolling.</em></h2>
@@ -98,7 +105,7 @@
   </div>
 </section>
 
-<section id="process" data-screen-label="Process" style="padding:120px 0;border-top:1px solid rgba(18,20,31,.10)">
+<section id="process" data-screen-label="Process" class="sec" style="padding:120px 0;border-top:1px solid rgba(18,20,31,.10)">
   <div style="max-width:1120px;margin:0 auto;padding:0 24px">
     <div style="font-family:'Spline Sans Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#5A62C9;margin-bottom:20px">The Process</div>
     <h2 style="font-family:'Fraunces',serif;font-weight:340;font-size:clamp(28px,4.5vw,44px);line-height:1.15;margin-bottom:14px">Three steps. <em style="font-style:italic;color:#5A62C9">Zero surprises.</em></h2>
@@ -126,7 +133,7 @@
   </div>
 </section>
 
-<section id="pricing" data-screen-label="Pricing" style="padding:120px 0;border-top:1px solid rgba(18,20,31,.10)">
+<section id="pricing" data-screen-label="Pricing" class="sec" style="padding:120px 0;border-top:1px solid rgba(18,20,31,.10)">
   <div style="max-width:1120px;margin:0 auto;padding:0 24px">
     <div style="font-family:'Spline Sans Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#5A62C9;margin-bottom:20px">Pricing</div>
     <h2 style="font-family:'Fraunces',serif;font-weight:340;font-size:clamp(28px,4.5vw,44px);line-height:1.15;margin-bottom:14px">One price. One timeline. <em style="font-style:italic;color:#5A62C9">Everything included.</em></h2>
@@ -191,7 +198,7 @@
   </div>
 </section>
 
-<section id="faq" data-screen-label="FAQ" style="padding:120px 0;border-top:1px solid rgba(18,20,31,.10)">
+<section id="faq" data-screen-label="FAQ" class="sec" style="padding:120px 0;border-top:1px solid rgba(18,20,31,.10)">
   <div style="max-width:1120px;margin:0 auto;padding:0 24px">
     <div style="font-family:'Spline Sans Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#5A62C9;margin-bottom:20px;text-align:center">FAQ</div>
     <h2 style="font-family:'Fraunces',serif;font-weight:340;font-size:clamp(28px,4.5vw,44px);line-height:1.15;margin-bottom:14px;text-align:center">Fair questions, <em style="font-style:italic;color:#5A62C9">honest answers.</em></h2>
@@ -224,7 +231,7 @@
   </div>
 </section>
 
-<section id="founder" data-screen-label="Founder note" style="padding:120px 0;border-top:1px solid rgba(18,20,31,.10);background:#FFFFFF">
+<section id="founder" data-screen-label="Founder note" class="sec" style="padding:120px 0;border-top:1px solid rgba(18,20,31,.10);background:#FFFFFF">
   <div style="max-width:720px;margin:0 auto;padding:0 24px;text-align:center">
     <div style="font-family:'Spline Sans Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#5A62C9;margin-bottom:28px">A note from the founder</div>
     <div style="display:flex;justify-content:center;margin-bottom:28px">
@@ -235,8 +242,8 @@
   </div>
 </section>
 
-<div id="book" data-screen-label="Final CTA" style="padding:96px 24px">
-  <div style="background:#12141F;color:#F6F5F0;border-radius:28px;max-width:1072px;margin:0 auto;text-align:center;padding:88px 32px;position:relative;overflow:hidden">
+<div id="book" data-screen-label="Final CTA" class="cta-outer" style="padding:96px 24px">
+  <div class="cta-inner" style="background:#12141F;color:#F6F5F0;border-radius:28px;max-width:1072px;margin:0 auto;text-align:center;padding:88px 32px;position:relative;overflow:hidden">
     <div style="position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(139,147,255,.24) 0%,transparent 68%);pointer-events:none"></div>
     <h2 style="position:relative;font-family:'Fraunces',serif;font-weight:340;font-size:clamp(30px,5.5vw,54px);line-height:1.12;max-width:720px;margin:0 auto">Your product is good. Your landing page should <em style="font-style:italic;color:#C7CBFF">prove it.</em></h2>
     <p style="position:relative;color:#8A8DA0;margin:22px auto 36px;max-width:440px">{{ ctaLine }}</p>
