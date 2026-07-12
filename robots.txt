@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /archive/
+Disallow: /__host.html
+
+Sitemap: https://novara-studio.rizqiansyah.net/sitemap.xml
